@@ -89,7 +89,7 @@ class BasicConvLSTMCell(ConvRNNCell):
       i, j, f, o = tf.split(axis=3, num_or_size_splits=4, value=concat)
 
       new_c = (c * tf.nn.sigmoid(f + self._forget_bias) + tf.nn.sigmoid(i) *
-               self._activation(j))
+               self._activation(j))c
       new_h = self._activation(new_c) * tf.nn.sigmoid(o)
 
       if self._state_is_tuple:

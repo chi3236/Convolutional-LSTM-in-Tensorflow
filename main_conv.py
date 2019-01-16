@@ -29,7 +29,7 @@ tf.app.flags.DEFINE_integer('batch_size', 16,
 tf.app.flags.DEFINE_float('weight_init', .1,
                             """weight init for fully connected layers""")
 
-fourcc = cv2.cv.CV_FOURCC('m', 'p', '4', 'v') 
+fourcc = cv2.VideoWriter_fourcc('m', 'p', '4', 'v') 
 
 def generate_bouncing_ball_sample(batch_size, seq_length, shape, num_balls):
   dat = np.zeros((batch_size, seq_length, shape, shape, 3))
@@ -52,7 +52,7 @@ def train():
 
     # conv peice in
     for i in xrange(FLAGS.seq_length-1):
-      if i == 0:
+      if i is 0:
         # conv1
         conv1 = ld.conv_layer(x_dropout[:,i,:,:,:], 3, 2, 8, "encode_1")
       else:
@@ -74,7 +74,7 @@ def train():
       x_1 = ld.transpose_conv_layer(conv7, 3, 2, 3, "decode_8", True) # set activation to linear
       x_unwrap.append(x_1)
       # set reuse to true after first go
-      if i == 0:
+      if i is 0:
         tf.get_variable_scope().reuse_variables()
 
     # pack them all together 
@@ -84,7 +84,7 @@ def train():
     # this part will be used for generating video
     x_unwrap_gen = []
     for i in xrange(50):
-      if i == 0:
+      if i is 0:
         # conv1
         conv1 = ld.conv_layer(x[:,0,:,:,:], 3, 2, 8, "encode_1")
       else:
